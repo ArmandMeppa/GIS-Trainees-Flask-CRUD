@@ -1,8 +1,4 @@
-
-# app.py
-
 from flask import Flask, render_template, redirect, request
-from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 
@@ -17,18 +13,16 @@ class Book(db.Model):
     year = db.Column(db.Integer)
 
 
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.db'
+db = SQLAlchemy(app)
 
-@app.before_request
-def import_data():
-    global data_imported
-    if not data_imported:
-        db.create_all()
-        if Book.query.first() is None:  # Only import if table is empty
-            data = pd.read_csv('data.csv')
-            for _, row in data.iterrows():
-                db.session.add(Book(title=row['title'],author=row['author'],year=row['year']))
-            db.session.commit()
-        data_imported = True
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    author =db.Column(db.String(100))
+    year = db.Column(db.Integer)
+
 
 @app.route('/')
 def index():
@@ -56,10 +50,18 @@ def edit_book(book_id):
         book.author = request.form['author']
         book.year = int(request.form['year'])
         db.session.commit()
-        
         return redirect('/')
-    
     return render_template('edit_book.html', book=book)
 
+
+@app.route('/delete/<int:id>')
+def delete_book(id):
+    book_to_delete = Book.query.get_or_404(id)
+    db.session.delete(book_to_delete)
+    db.session.commit()
+    return redirect('/')
+
 if __name__ == '__main__':
-    app.run(port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
+
+
