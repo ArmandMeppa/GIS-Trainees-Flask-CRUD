@@ -1,8 +1,9 @@
-
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Book List</title>
+    
 </head>
 <body>
     <h1>Book List</h1>
@@ -22,7 +23,98 @@
         </tr>
         {% endfor %}
     </table>
-    <a href="/add">Add a book</a>
+    <a href="/add" class="add-book-link">Add a book</a>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .add-book-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: green;
+        }
+        
+        .delete-button {
+            background-color: red;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+        .update-button {
+            background-color: green;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+</style>
+    
+</head>
+<body>
+    <h1>Book List</h1>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.year }}</td>
+            <td><a href="/edit_book/{{ book.id }}" class="update-button">Edit</a></td>
+            <td><a href="/delete/{{ book.id }}" class="delete-button">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/add" class="add-book-link">Add a book</a>
 </body>
 </html>
 

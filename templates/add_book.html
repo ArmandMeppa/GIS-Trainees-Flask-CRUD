@@ -2,14 +2,64 @@
 <html>
 <head>
     <title>Add Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        h1 {
+            color: #333;
+            order: -1;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+        
+        @media (max-width: 600px) {
+            form {
+                width: 80%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Add Book</h1>
+    
     <form method="post" action="/add">
-        <input type="text" name="title" placeholder="Title" required>
-        <input type="text" name="author" placeholder="Author" required>
-        <input type="number" name="year" placeholder="Year" required>
+        <h1>Add Book</h1>
+        <input type="text" name="title" placeholder="Title" required><br>
+        <input type="text" name="author" placeholder="Author" required><br>
+        <input type="number" name="year" placeholder="Year" required><br>
         <button type="submit">Add Book</button>
     </form>
 </body>
 </html>
+
